@@ -22,8 +22,10 @@ BlackJack With Views
   - Select iPhone for Device Family 
   - And Save your storyboard with the default name into your projects directory 
   - From the Project Navigator's main interface select your storyboard.  
-  - Let's add our first view to the storyboard.  From the Utilities navigator, in the Object Library, -lect `View Controller` and drag the View Controller to the Storyboard. 
+  - Let's add our first view to the storyboard.  From the Utilities navigator, in the Object Library, select `View Controller` and drag the View Controller to the Storyboard. 
   - Your View Controller will automatically be configured as the initial view controller for your project. 
+  
+
   - You probably have some code similar to the following in your AppDelegate's didFinishLaunchingWithOptions: method. 
 
   ```objc
@@ -48,13 +50,33 @@ BlackJack With Views
   - Next create a label for score 
   -  Create one last label that tells the user if they got a blackjack or if they busted
 
+
+  ## Accessibility Labels 
+
+  For testing, we'll be using accessibility labels to ensure that the necessary UI Elements are on screen. You can configure accessiblity labels either on the storyboard or in code.  Make sure your accessiblity labels are configured to exactly these strings for your labels and buttons: 
+
+  ```objc
+    self.card1.accessibilityLabel = @"card1";
+    self.card2.accessibilityLabel = @"card2";
+    self.card3.accessibilityLabel = @"card3";
+    self.card4.accessibilityLabel = @"card4";
+    self.card5.accessibilityLabel = @"card5";
+
+    self.hitButton.accessibilityLabel = @"hitButton";
+    self.dealButton.accessibilityLabel = @"dealButton";
+    self.scoreLabel.accessibilityLabel = @"scoreLabel";
+    self.resultLabel.accessibilityLabel = @"resultLabel"; 
+
+  ```
+
+  
   ## UIViewController Subclass 
 
   **We've created our UI, but right now we don't have a way to interact with it in code.  We connect our storyboards to code by creating a subclass of UIViewController and assigning that subclass to our storyboard View Controller**
 
   - Create a new file - > Objective-C Class  
   - Give your class the name "BlackjackGameViewController" with Subclass of UIViewController 
-  - Back in the storyboard, select your view controller and open the identity inspector.  Set the custom class to FISBlackjackGameViewController.  We've now created a connection between our UI and our code.  Let's connect our Interface elements to our code with Outlets and actions.  
+  - Back in the storyboard, select your view controller and open the identity inspector.  Set the custom class to BlackjackGameViewController.  We've now created a connection between our UI and our code.  Let's connect our Interface elements to our code with Outlets and actions.  
   - With your ViewController selected in the storyboard, open the assistant editor.  This gives you a split view between your storyboard and your custom view controller. 
   - Select your first 'cardLabel' and ctrl + drag to the interface in your .h file.  For Each card we'll select the following options: Connection: outlet, Name (card1, card2, card3, etc...) Type: UILabel, and storage: weak.  
   -  Repeat these steps for each of your cards to create a total of 5 outlets for each label. 
@@ -64,7 +86,7 @@ BlackJack With Views
 
   ## Implementing your Blackjack Game 
 
-  - add a property of type FISBlackjackGame to your FISBlackjackGameViewController's .h file. In the viewDidLoad method,  alloc]init] your BlackjackGame property.
+  - add a property of type BlackjackGame to your BlackjackGameViewController's .h file. In the viewDidLoad method,  alloc]init] your BlackjackGame property.
 
   ```objc
   - (void)viewDidLoad
