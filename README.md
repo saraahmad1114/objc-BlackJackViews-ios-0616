@@ -75,8 +75,8 @@ BlackJack With Views
   **We've created our UI, but right now we don't have a way to interact with it in code.  We connect our storyboards to code by creating a subclass of UIViewController and assigning that subclass to our storyboard View Controller**
 
   - Create a new file - > Objective-C Class  
-  - Give your class the name "BlackjackGameViewController" with Subclass of UIViewController 
-  - Back in the storyboard, select your view controller and open the identity inspector.  Set the custom class to BlackjackGameViewController.  We've now created a connection between our UI and our code.  Let's connect our Interface elements to our code with Outlets and actions.  
+  - Give your class the name "FISBlackjackGameViewController" with Subclass of UIViewController 
+  - Back in the storyboard, select your view controller and open the identity inspector.  Set the custom class to FISBlackjackGameViewController.  We've now created a connection between our UI and our code.  Let's connect our Interface elements to our code with Outlets and actions.  
   - With your ViewController selected in the storyboard, open the assistant editor.  This gives you a split view between your storyboard and your custom view controller. 
   - Select your first 'cardLabel' and ctrl + drag to the interface in your .h file.  For Each card we'll select the following options: Connection: outlet, Name (card1, card2, card3, etc...) Type: UILabel, and storage: weak.  
   -  Repeat these steps for each of your cards to create a total of 5 outlets for each label. 
@@ -86,7 +86,7 @@ BlackJack With Views
 
   ## Implementing your Blackjack Game 
 
-  - add a property of type BlackjackGame to your BlackjackGameViewController's .h file. In the viewDidLoad method,  alloc]init] your BlackjackGame property.
+  - add a property of type BlackjackGame to your FISBlackjackGameViewController's .h file. In the viewDidLoad method,  alloc]init] your BlackjackGame property.
 
   ```objc
   - (void)viewDidLoad
@@ -94,17 +94,17 @@ BlackJack With Views
     self = [super viewDidLoad];
     if (self)
   {
-    self.blackjackGame = [[BlackjackGame alloc] init];
+    self.blackjackGame = [[FISBlackjackGame alloc] init];
   }
 
   }
 ```
 
-  - Next, also in your viewDidLoad method, call your BlackjackGame's deal method and update your first two card labels.  UILabel has a text property.  You should update the text of your label to match the description of each of your playing cards.  
+  - Next, also in your viewDidLoad method, call your FISBlackjackGame's deal method and update your first two card labels.  UILabel has a text property.  You should update the text of your label to match the description of each of your playing cards.  
   - Implement your deal and hit methods to perform the appropriate functions. ie. in deal, instantiate a new game, remove all label text and add update your first two labels for a new deal, and in hit, call the game's hit method and update a third (or 4th or 5th) card with the description of the card that was hit.  
   - After each move you should update your score label, and if you bust or get a blackjack you should update your bust/blackjack label.  
 
-  **You might want to create an 'updateUI' method that you call after each action to update the UIElements that are changing.  You don't necessarily have to do this, but it will probably present itself in refactoring.**      
+  **You should create an 'updateUI' method in your  call after each action to update the UIElements that are changing. You'll see the updateUI method alluded to in the tests**      
 
 
 
