@@ -54,7 +54,7 @@ BlackJack With Views
 
   - Create a new file - > Objective-C Class  
   - Give your class the name "BlackjackGameViewController" with Subclass of UIViewController 
-  - Back in the storyboard, select your view controller and open the identity inspector.  Set the custom class to BlackjackGameViewController.  We've now created a connection between our UI and our code.  Let's connect our Interface elements to our code with Outlets and actions.  
+  - Back in the storyboard, select your view controller and open the identity inspector.  Set the custom class to FISBlackjackGameViewController.  We've now created a connection between our UI and our code.  Let's connect our Interface elements to our code with Outlets and actions.  
   - With your ViewController selected in the storyboard, open the assistant editor.  This gives you a split view between your storyboard and your custom view controller. 
   - Select your first 'cardLabel' and ctrl + drag to the interface in your .h file.  For Each card we'll select the following options: Connection: outlet, Name (card1, card2, card3, etc...) Type: UILabel, and storage: weak.  
   -  Repeat these steps for each of your cards to create a total of 5 outlets for each label. 
@@ -64,7 +64,7 @@ BlackJack With Views
 
   ## Implementing your Blackjack Game 
 
-  - add a property of type BlackjackGame to your BlackjackGameViewController's .h file. In the viewDidLoad method,  alloc]init] your BlackjackGame property.
+  - add a property of type FISBlackjackGame to your FISBlackjackGameViewController's .h file. In the viewDidLoad method,  alloc]init] your BlackjackGame property.
 
   ```objc
   - (void)viewDidLoad
