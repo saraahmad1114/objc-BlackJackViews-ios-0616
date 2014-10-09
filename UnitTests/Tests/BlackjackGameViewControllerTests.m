@@ -21,13 +21,10 @@ __block FISBlackjackGameViewController *bjgVC;
 
 describe(@"FISAppDelegate", ^{
     
-    beforeAll(^{
+    beforeEach(^{
         FISAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
         
         bjgVC = (FISBlackjackGameViewController *)appDelegate.window.rootViewController;
-    });
-    
-    beforeEach(^{
     });
     
     describe(@"Initial View", ^{
