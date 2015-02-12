@@ -74,7 +74,7 @@ BlackJack With Views
 
   **We've created our UI, but right now we don't have a way to interact with it in code.  We connect our storyboards to code by creating a subclass of UIViewController and assigning that subclass to our storyboard View Controller**
 
-  - Create a new file - > Objective-C Class  
+  - Create a new file - > New Cocoa Touch Class
   - Give your class the name "FISBlackjackGameViewController" with Subclass of UIViewController 
   - Back in the storyboard, select your view controller and open the identity inspector.  Set the custom class to FISBlackjackGameViewController.  We've now created a connection between our UI and our code.  Let's connect our Interface elements to our code with Outlets and actions.  
   - With your ViewController selected in the storyboard, open the assistant editor.  This gives you a split view between your storyboard and your custom view controller. 
