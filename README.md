@@ -1,7 +1,4 @@
----
-  tags: tutorial, beginner, OOP, Object-Oriented Programming, views 
-  languages: objc
----
+
 
 BlackJack With Views 
 =======
