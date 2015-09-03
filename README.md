@@ -1,7 +1,4 @@
----
-  tags: tutorial, beginner, OOP, Object-Oriented Programming, views 
-  languages: objc
----
+
 
 BlackJack With Views 
 =======
@@ -35,7 +32,7 @@ BlackJack With Views
     [self.window makeKeyAndVisible];
   ```
 
-  -  You can delete all of that code.  The storyboard magically handles configuring the window and adding the initial View Controller.  
+  -  **You can delete all of that code.**  The storyboard magically handles configuring the window and adding the initial View Controller.  
 
   ## User Interface 
 
@@ -91,12 +88,9 @@ BlackJack With Views
   ```objc
   - (void)viewDidLoad
   {
-    self = [super viewDidLoad];
-    if (self)
-  {
+    [super viewDidLoad];
+    
     self.blackjackGame = [[FISBlackjackGame alloc] init];
-  }
-
   }
 ```
 
