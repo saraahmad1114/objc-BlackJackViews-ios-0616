@@ -93,12 +93,18 @@ BlackJack With Views
     self.blackjackGame = [[FISBlackjackGame alloc] init];
   }
 ```
+  **Now before you move on, create an 'updateUI' method in your View Controller.**  
+  
+  - In the upcoming instructions you'll be told to update certain UI elements based on actions made in the game. Having this `updateUI` method makes it easy and convenient for you to update your UI (*naming conventions!*), as well as gives you a centralized place where it's all happening. 
+     - for testing purposes, do us a favor and make sure your `updateUI` method is public.
+     - also make sure your `blackjackGame` property is public as well. 
+     - *Reminder: all you need to do to make a method or property public is to declare it in the `.h` file!*
 
   - Next, also in your viewDidLoad method, call your FISBlackjackGame's deal method and update your first two card labels.  UILabel has a text property.  You should update the text of your label to match the description of each of your playing cards.  
   - Implement your deal and hit methods to perform the appropriate functions. ie. in deal, instantiate a new game, remove all label text and add update your first two labels for a new deal, and in hit, call the game's hit method and update a third (or 4th or 5th) card with the description of the card that was hit.  
   - After each move you should update your score label, and if you bust or get a blackjack you should update your bust/blackjack label.  
 
-  **You should create an 'updateUI' method in your  call after each action to update the UIElements that are changing. You'll see the updateUI method alluded to in the tests**      
+
 
 
 
