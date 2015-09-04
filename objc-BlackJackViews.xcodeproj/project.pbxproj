@@ -16,6 +16,7 @@
 		44A6AD82194F4C7400C0F7FD /* FISDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A6AD7B194F4C7400C0F7FD /* FISDeck.m */; };
 		44A6AD83194F4C7400C0F7FD /* FISPlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A6AD7D194F4C7400C0F7FD /* FISPlayingCard.m */; };
 		44A6AD84194F4C7400C0F7FD /* FISPlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A6AD7F194F4C7400C0F7FD /* FISPlayingCardDeck.m */; };
+		44A6AD86194F730300C0F7FD /* BlackjackGameViewControllerSpecs.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A6AD85194F730300C0F7FD /* BlackjackGameViewControllerSpecs.m */; };
 		66E60841BFAC4152B025B889 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A500DDDF79D42A6AB790B43 /* Foundation.framework */; };
 		9F779F6C782FE91B24AAAE04 /* libPods-UnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1C1396FB811064C65E9DBDD /* libPods-UnitTests.a */; };
 		CB9A059AEB7C42AF83889669 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B82398F8796741819AC8D0C9 /* main.m */; };
@@ -49,6 +50,8 @@
 		44A6AD7D194F4C7400C0F7FD /* FISPlayingCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISPlayingCard.m; sourceTree = "<group>"; };
 		44A6AD7E194F4C7400C0F7FD /* FISPlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISPlayingCardDeck.h; sourceTree = "<group>"; };
 		44A6AD7F194F4C7400C0F7FD /* FISPlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISPlayingCardDeck.m; sourceTree = "<group>"; };
+		4431566C194F443B002EE862 /* BlackjackGameViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackjackGameViewControllerTests.m; sourceTree = "<group>"; };
+		44A6AD85194F730300C0F7FD /* BlackjackGameViewControllerSpecs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackjackGameViewControllerSpecs.m; sourceTree = "<group>"; };
 		53BF45D4889F463A8D12FC00 /* FISAppDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = FISAppDelegate.h; sourceTree = "<group>"; };
 		5BB122409BA9418B8E8ECCFE /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		6E5E19F6190343BCF4711D29 /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -147,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				4431566C194F443B002EE862 /* BlackjackGameViewControllerTests.m */,
+				44A6AD85194F730300C0F7FD /* BlackjackGameViewControllerSpecs.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -407,6 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				310A1E0A19E6D09000721E00 /* BlackjackGameViewControllerTests.m in Sources */,
+				44A6AD86194F730300C0F7FD /* BlackjackGameViewControllerSpecs.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

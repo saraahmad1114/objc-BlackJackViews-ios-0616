@@ -34,7 +34,7 @@ describe(@"FISAppDelegate", ^{
             [tester waitForViewWithAccessibilityLabel:@"card2"];
         });
         
-        it(@"should hide cards 3 4 and 5 in the initial view", ^{
+        it(@"should hide cards 3 4 and 5 in the initial view", ^{                        [tester tapViewWithAccessibilityLabel:@"dealButton"];
             [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card3"];
             [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card4"];
             [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card5"];
