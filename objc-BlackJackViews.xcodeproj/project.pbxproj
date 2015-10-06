@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		297FF2CCAF3C46F7B8CF451F /* FISAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4329259594A78826919DC /* FISAppDelegate.m */; };
-		310A1E0A19E6D09000721E00 /* BlackjackGameViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4431566C194F443B002EE862 /* BlackjackGameViewControllerTests.m */; };
 		440569D1194F45C9006A0E35 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 440569D0194F45C9006A0E35 /* Storyboard.storyboard */; };
 		440569D4194F4636006A0E35 /* FISBlackjackGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 440569D3194F4636006A0E35 /* FISBlackjackGameViewController.m */; };
 		44A6AD80194F4C7400C0F7FD /* FISBlackjackGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A6AD77194F4C7400C0F7FD /* FISBlackjackGame.m */; };
@@ -39,7 +38,6 @@
 		440569D0194F45C9006A0E35 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		440569D2194F4636006A0E35 /* FISBlackjackGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISBlackjackGameViewController.h; sourceTree = "<group>"; };
 		440569D3194F4636006A0E35 /* FISBlackjackGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISBlackjackGameViewController.m; sourceTree = "<group>"; };
-		4431566C194F443B002EE862 /* BlackjackGameViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackjackGameViewControllerTests.m; sourceTree = "<group>"; };
 		44A6AD76194F4C7400C0F7FD /* FISBlackjackGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISBlackjackGame.h; sourceTree = "<group>"; };
 		44A6AD77194F4C7400C0F7FD /* FISBlackjackGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISBlackjackGame.m; sourceTree = "<group>"; };
 		44A6AD78194F4C7400C0F7FD /* FISCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISCard.h; sourceTree = "<group>"; };
@@ -50,7 +48,6 @@
 		44A6AD7D194F4C7400C0F7FD /* FISPlayingCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISPlayingCard.m; sourceTree = "<group>"; };
 		44A6AD7E194F4C7400C0F7FD /* FISPlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FISPlayingCardDeck.h; sourceTree = "<group>"; };
 		44A6AD7F194F4C7400C0F7FD /* FISPlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISPlayingCardDeck.m; sourceTree = "<group>"; };
-		4431566C194F443B002EE862 /* BlackjackGameViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackjackGameViewControllerTests.m; sourceTree = "<group>"; };
 		44A6AD85194F730300C0F7FD /* BlackjackGameViewControllerSpecs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackjackGameViewControllerSpecs.m; sourceTree = "<group>"; };
 		53BF45D4889F463A8D12FC00 /* FISAppDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = FISAppDelegate.h; sourceTree = "<group>"; };
 		5BB122409BA9418B8E8ECCFE /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -409,7 +406,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				310A1E0A19E6D09000721E00 /* BlackjackGameViewControllerTests.m in Sources */,
 				44A6AD86194F730300C0F7FD /* BlackjackGameViewControllerSpecs.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
