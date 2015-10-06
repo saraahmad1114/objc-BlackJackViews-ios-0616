@@ -7,7 +7,7 @@
 //
 
 #import "FISAppDelegate.h"
-#import "FISBlackjackGameViewController.h"
+#import "FISBlackjackViewController.h"
 
 @implementation FISAppDelegate
 

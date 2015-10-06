@@ -1,30 +1,22 @@
-//
-//  AppDelegateTests.m
-//  objc-BlackJackViews
-//
-//  Created by Al Tyus on 6/16/14.
-//  Copyright (c) 2014 Flatiron School. All rights reserved.
-//
+//  FISBlackjackViewControllerSpec.m
 
 #import "Specta.h"
 #define EXP_SHORTHAND
-#import <Expecta.h>
-#import "FISAppDelegate.h"
-#import <KIF/KIF.h>
-#import "FISBlackjackGameViewController.h"
-#import "FISPlayingCard.h"
+#import "Expecta.h"
+#import "KIF.h"
+#import "FISBlackjackViewController.h"
+#import "FISCard.h"
 
 
-SpecBegin(FISBlackjackGameViewController)
+SpecBegin(FISBlackjackViewController)
 
-__block FISBlackjackGameViewController *bjgVC;
-
-describe(@"FISAppDelegate", ^{
+describe(@"FISBlackjackViewController", ^{
+    
+    __block FISBlackjackViewController *blackjackVC;
     
     beforeEach(^{
-        FISAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
         
-        bjgVC = (FISBlackjackGameViewController *)appDelegate.window.rootViewController;
+        blackjackVC = (FISBlackjackViewController *)[UIApplication sharedApplication].delegate.window.rootViewController;
     });
     
     describe(@"Initial View", ^{
@@ -47,14 +39,14 @@ describe(@"FISAppDelegate", ^{
             
             for (int x = 0; x < 5; x++)
             {
-                FISPlayingCard *aceSpades = [[FISPlayingCard alloc] initWithSuit:@"♠️" rank:@1];
-                FISPlayingCard *aceDiamonds = [[FISPlayingCard alloc] initWithSuit:@"♦️" rank:@1];
+                FISCard *aceSpades = [[FISCard alloc] initWithSuit:@"♠️" rank:@1];
+                FISCard *aceDiamonds = [[FISCard alloc] initWithSuit:@"♦️" rank:@1];
                 
-                bjgVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[aceDiamonds, aceSpades]];
-                [bjgVC updateUI];
+                blackjackVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[aceDiamonds, aceSpades]];
+                [blackjackVC updateUI];
                 
                 [tester tapViewWithAccessibilityLabel:@"hitButton"];
-                expect([bjgVC.blackjackGame.hand count]).to.equal(3);
+                expect([blackjackVC.blackjackGame.hand count]).to.equal(3);
                 expect(((UILabel *)[tester waitForViewWithAccessibilityLabel:@"card3"]).isHidden).to.beFalsy();
                 [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card4"];
                 [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card5"];
@@ -62,11 +54,11 @@ describe(@"FISAppDelegate", ^{
         });
         
         it(@"should not hit if blackjack", ^{
-            FISPlayingCard *aceSpades = [[FISPlayingCard alloc] initWithSuit:@"♠️" rank:@1];
-            FISPlayingCard *kingDiamonds = [[FISPlayingCard alloc] initWithSuit:@"♦️" rank:@13];
+            FISCard *aceSpades = [[FISCard alloc] initWithSuit:@"♠️" rank:@1];
+            FISCard *kingDiamonds = [[FISCard alloc] initWithSuit:@"♦️" rank:@13];
             
-            bjgVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[aceSpades, kingDiamonds]];
-            [bjgVC updateUI];
+            blackjackVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[aceSpades, kingDiamonds]];
+            [blackjackVC updateUI];
             
             [tester tapViewWithAccessibilityLabel:@"hitButton"];
             
@@ -78,9 +70,9 @@ describe(@"FISAppDelegate", ^{
         });
         
         it(@"should not hit if busted", ^{
-            FISPlayingCard *kingDiamonds = [[FISPlayingCard alloc] initWithSuit:@"♦️" rank:@13];
-            FISPlayingCard *kingSpades = [[FISPlayingCard alloc] initWithSuit:@"♠️" rank:@13];
-            FISPlayingCard *kingHearts = [[FISPlayingCard alloc] initWithSuit:@"♥️" rank:@13];
+            FISCard *kingDiamonds = [[FISCard alloc] initWithSuit:@"♦️" rank:@13];
+            FISCard *kingSpades = [[FISCard alloc] initWithSuit:@"♠️" rank:@13];
+            FISCard *kingHearts = [[FISCard alloc] initWithSuit:@"♥️" rank:@13];
             
             bjgVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[kingDiamonds, kingHearts, kingSpades]];
             [bjgVC updateUI];
@@ -109,12 +101,12 @@ describe(@"FISAppDelegate", ^{
     
     describe(@"scoreLabel", ^{
         it(@"should update scoreLabel with the current score", ^{
-            FISPlayingCard *kingDiamonds = [[FISPlayingCard alloc] initWithSuit:@"♦️" rank:@13];
-            FISPlayingCard *kingSpades = [[FISPlayingCard alloc] initWithSuit:@"♠️" rank:@13];
-            FISPlayingCard *kingHearts = [[FISPlayingCard alloc] initWithSuit:@"♥️" rank:@13];
+            FISCard *kingDiamonds = [[FISCard alloc] initWithSuit:@"♦️" rank:@13];
+            FISCard *kingSpades = [[FISCard alloc] initWithSuit:@"♠️" rank:@13];
+            FISCard *kingHearts = [[FISCard alloc] initWithSuit:@"♥️" rank:@13];
             
-            bjgVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[kingDiamonds, kingHearts, kingSpades]];
-            [bjgVC updateUI];
+            blackjackVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[kingDiamonds, kingHearts, kingSpades]];
+            [blackjackVC updateUI];
 
             UILabel *scoreLabel = (UILabel *)[tester waitForViewWithAccessibilityLabel:@"scoreLabel"];
             
@@ -125,23 +117,23 @@ describe(@"FISAppDelegate", ^{
     
     describe(@"resultLabel", ^{
         it(@"should show Blackjack! in resultLabel if blackjack", ^{
-            FISPlayingCard *aceSpades = [[FISPlayingCard alloc] initWithSuit:@"♠️" rank:@1];
-            FISPlayingCard *kingDiamonds = [[FISPlayingCard alloc] initWithSuit:@"♦️" rank:@13];
+            FISCard *aceSpades = [[FISCard alloc] initWithSuit:@"♠️" rank:@1];
+            FISCard *kingDiamonds = [[FISCard alloc] initWithSuit:@"♦️" rank:@13];
             
-            bjgVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[aceSpades, kingDiamonds]];
-            [bjgVC updateUI];
+            blackjackVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[aceSpades, kingDiamonds]];
+            [blackjackVC updateUI];
             
             UILabel *resultLabel = (UILabel *)[tester waitForViewWithAccessibilityLabel:@"resultLabel"];
             expect(resultLabel.text).to.equal(@"Blackjack!");
         });
         
         it(@"should show Busted! in resultLabel if busted", ^{
-            FISPlayingCard *kingDiamonds = [[FISPlayingCard alloc] initWithSuit:@"♦️" rank:@13];
-            FISPlayingCard *kingSpades = [[FISPlayingCard alloc] initWithSuit:@"♠️" rank:@13];
-            FISPlayingCard *kingHearts = [[FISPlayingCard alloc] initWithSuit:@"♥️" rank:@13];
+            FISCard *kingDiamonds = [[FISCard alloc] initWithSuit:@"♦️" rank:@13];
+            FISCard *kingSpades = [[FISCard alloc] initWithSuit:@"♠️" rank:@13];
+            FISCard *kingHearts = [[FISCard alloc] initWithSuit:@"♥️" rank:@13];
             
-            bjgVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[kingDiamonds, kingHearts, kingSpades]];
-            [bjgVC updateUI];
+            blackjackVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[kingDiamonds, kingHearts, kingSpades]];
+            [blackjackVC updateUI];
             
             UILabel *resultLabel = (UILabel *)[tester waitForViewWithAccessibilityLabel:@"resultLabel"];
             
