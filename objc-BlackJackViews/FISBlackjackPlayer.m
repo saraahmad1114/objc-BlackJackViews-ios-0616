@@ -4,10 +4,6 @@
 
 @interface FISBlackjackPlayer ()
 
-@property (strong, nonatomic, readwrite) NSString *name;
-@property (strong, nonatomic, readwrite) NSMutableArray *cardsInHand;
-@property (nonatomic, readwrite) NSUInteger handscore;
-
 @end
 
 @implementation FISBlackjackPlayer

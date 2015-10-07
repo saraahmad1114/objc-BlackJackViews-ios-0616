@@ -17,77 +17,70 @@
     // Do any additional setup after loading the view.
     self.houseCardViews = @[self.houseCard1, self.houseCard2, self.houseCard3, self.houseCard4, self.houseCard5];
     self.playerCardViews = @[self.playerCard1, self.playerCard2, self.playerCard3, self.playerCard4, self.playerCard5];
-    [self resetViewsForNewRound];
     
     self.game = [[FISBlackjackGame alloc] init];
     
+    [self updateViews];
+    self.houseCard1.hidden = YES;
+    self.deal.enabled = YES;
+    self.hit.enabled = NO;
+    self.stay.enabled = NO;
 }
 
-- (void)resetViewsForNewRound {
-    
-    self.houseScore.hidden = YES;
-    
-    for (UILabel *cardView in self.houseCardViews) {
-        cardView.text = @"";
-        cardView.hidden = YES;
-    }
-    for (UILabel *cardView in self.playerCardViews) {
-        cardView.text = @"";
-        cardView.hidden = YES;
-    }
-    
-    self.winner.hidden = YES;
-    
-    self.houseStayed.hidden = YES;
-    self.houseBusted.hidden = YES;
-    self.playerStayed.hidden = YES;
-    self.playerBusted.hidden = YES;
-    
-    self.hit.enabled = YES;
-    self.stay.enabled = YES;
-    self.playerScore.text = [NSString stringWithFormat:@"Score: 0"];
-}
+# pragma update views
 
 - (void)updateViews {
     [self showHouseCards];
     [self showPlayerCards];
-    [self showAlteredStatusLabels];
+    [self showActiveStatusLabels];
     [self updatePlayerScoreLabel];
+    if ([self playerMayHit]) {
+        self.winner.hidden = YES;
+        self.houseScore.hidden = YES;
+    }
 }
 
 - (void)showHouseCards {
-    for (NSUInteger i = 0; i < self.game.house.cardsInHand.count; i++) {
+    for (NSUInteger i = 0; i < self.houseCardViews.count; i++) {
         UILabel *houseCardView = self.houseCardViews[i];
-        FISCard *card = self.game.house.cardsInHand[i];
         
         if (i == 0) {
             houseCardView.text = @"❂";
-        } else {
+        } else if (i < self.game.house.cardsInHand.count) {
+            FISCard *card = self.game.house.cardsInHand[i];
             houseCardView.text = card.cardLabel;
+        } else {
+            houseCardView.text = @"";
         }
-    }
-    for (UILabel *cardView in self.houseCardViews) {
-        if (cardView.text.length > 0) {
-            cardView.hidden = NO;
+        
+        if (houseCardView.text.length > 0) {
+            houseCardView.hidden = NO;
+        } else {
+            houseCardView.hidden = YES;
         }
     }
 }
 
 - (void)showPlayerCards {
-    for (NSUInteger i = 0; i < self.game.player.cardsInHand.count; i++) {
-        FISCard *card = self.game.player.cardsInHand[i];
+    for (NSUInteger i = 0; i < self.playerCardViews.count; i++) {
         UILabel *playerCardView = self.playerCardViews[i];
         
-        playerCardView.text = card.cardLabel;
-    }
-    for (UILabel *cardView in self.playerCardViews) {
-        if (cardView.text.length > 0) {
-            cardView.hidden = NO;
+        if (i < self.game.player.cardsInHand.count) {
+            FISCard *card = self.game.player.cardsInHand[i];
+            playerCardView.text = card.cardLabel;
+        } else {
+            playerCardView.text = @"";
+        }
+        
+        if (playerCardView.text.length > 0) {
+            playerCardView.hidden = NO;
+        } else {
+            playerCardView.hidden = YES;
         }
     }
 }
 
-- (void)showAlteredStatusLabels {
+- (void)showActiveStatusLabels {
     self.houseStayed.hidden = !self.game.house.stayed;
     self.houseBusted.hidden = !self.game.house.busted;
     self.houseBlackjack.hidden = !self.game.house.blackjack;
@@ -102,18 +95,18 @@
     self.playerScore.text = [NSString stringWithFormat:@"Score: %lu", playerScore];
 }
 
-- (IBAction)dealTapped:(id)sender {
-    [self resetViewsForNewRound];
-    [self playBlackjack];
-}
+# pragma player turn
 
-- (void)playBlackjack {
-    [self.game dealNewRound];
-    [self updateViews];
+- (BOOL)playerMayHit {
+    BOOL playerMayHit = !self.game.player.busted && !self.game.player.stayed && !self.game.player.blackjack;
+    return playerMayHit;
 }
 
 - (void)processPlayerTurn {
-    BOOL playerMayHit = !self.game.player.busted && !self.game.player.stayed && !self.game.player.blackjack;
+    [self.game dealCardToPlayer];
+    [self updateViews];
+    
+    BOOL playerMayHit = [self playerMayHit];
     self.hit.enabled = playerMayHit;
     self.stay.enabled = playerMayHit;
     
@@ -122,7 +115,13 @@
     }
 }
 
+# pragma conclude round
+
 - (void)concludeRound {
+    self.deal.enabled = YES;
+    self.hit.enabled = NO;
+    self.stay.enabled = NO;
+    
     for (NSUInteger i = self.game.house.cardsInHand.count; i < 5; i++) {
         BOOL houseMayHit = !self.game.house.busted && !self.game.house.stayed && !self.game.house.blackjack;
         if (houseMayHit) {
@@ -130,9 +129,11 @@
         }
     }
     
+    [self updateViews];
+    
     [self displayHouseHand];
     [self displayHouseScore];
-    [self evaluateAndDisplayWinner];
+    [self displayWinner];
     [self updateWinsAndLossesLabels];
 }
 
@@ -147,7 +148,7 @@
     self.houseScore.hidden = NO;
 }
 
-- (void)evaluateAndDisplayWinner {
+- (void)displayWinner {
     BOOL houseWins = [self.game houseWins];
     [self.game incrementWinsAndLossesForHouseWins:houseWins];
     
@@ -166,16 +167,30 @@
     self.playerLosses.text = [NSString stringWithFormat:@"Losses: %lu", self.game.player.losses];
 }
 
-- (IBAction)hitTapped:(id)sender {
-    [self.game dealCardToPlayer];
-    [self.game processHouseTurn];
+# pragma IBActions
+
+- (IBAction)dealTapped:(id)sender {
+    self.deal.enabled = NO;
+    self.hit.enabled = YES;
+    self.stay.enabled = YES;
+    [self.game dealNewRound];
     [self updateViews];
+    if (![self playerMayHit]) {
+        [self concludeRound];
+    }
+}
+
+- (IBAction)hitTapped:(id)sender {
+    [self processPlayerTurn];
+    [self.game processHouseTurn];
 }
 
 - (IBAction)stayTapped:(id)sender {
     self.game.player.stayed = YES;
-    [self.game processHouseTurn];
+    self.hit.enabled = NO;
+    self.stay.enabled = NO;
     [self updateViews];
+    [self concludeRound];
 }
 
 @end

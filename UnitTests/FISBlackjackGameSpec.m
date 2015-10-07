@@ -215,5 +215,4 @@ describe(@"FISBlackjackGame", ^{
     });
 });
 
-
 SpecEnd

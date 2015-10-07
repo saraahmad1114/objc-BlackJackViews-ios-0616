@@ -49,7 +49,6 @@
 - (IBAction)hitTapped:(id)sender;
 - (IBAction)stayTapped:(id)sender;
 
-- (void)resetViewsForNewRound;
 - (void)updateViews;
 
 @end

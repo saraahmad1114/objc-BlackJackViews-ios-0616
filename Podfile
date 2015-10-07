@@ -10,7 +10,8 @@ end
 
 target "UnitTests" do
   pod 'Specta', '~> 1.0'
-  pod 'Expecta', '~> 1.0'                                                 
+  pod 'Expecta', '~> 1.0'
+  pod 'Expecta+Collections'                                              
   pod 'Swizzlean', '~> 0.2'
   pod 'KIF', '~> 3.0'
 

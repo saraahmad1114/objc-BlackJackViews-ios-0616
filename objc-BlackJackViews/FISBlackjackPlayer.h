@@ -5,9 +5,9 @@
 
 @interface FISBlackjackPlayer : NSObject
 
-@property (strong, nonatomic, readonly) NSString *name;
-@property (strong, nonatomic, readonly) NSMutableArray *cardsInHand;
-@property (nonatomic, readonly) NSUInteger handscore;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSMutableArray *cardsInHand;
+@property (nonatomic) NSUInteger handscore;
 
 @property (nonatomic) BOOL aceInHand;
 @property (nonatomic) BOOL blackjack;
