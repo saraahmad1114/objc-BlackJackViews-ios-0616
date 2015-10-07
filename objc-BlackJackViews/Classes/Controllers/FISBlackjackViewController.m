@@ -122,11 +122,8 @@
     self.hit.enabled = NO;
     self.stay.enabled = NO;
     
-    for (NSUInteger i = self.game.house.cardsInHand.count; i < 5; i++) {
-        BOOL houseMayHit = !self.game.house.busted && !self.game.house.stayed && !self.game.house.blackjack;
-        if (houseMayHit) {
-            [self.game processHouseTurn];
-        }
+    if (!self.game.player.busted) {
+        [self finishHouseTurns];
     }
     
     [self updateViews];
@@ -135,6 +132,15 @@
     [self displayHouseScore];
     [self displayWinner];
     [self updateWinsAndLossesLabels];
+}
+
+- (void)finishHouseTurns {
+    for (NSUInteger i = self.game.house.cardsInHand.count; i < 5; i++) {
+        BOOL houseMayHit = !self.game.house.busted && !self.game.house.stayed && !self.game.house.blackjack;
+        if (houseMayHit) {
+            [self.game processHouseTurn];
+        }
+    }
 }
 
 - (void)displayHouseHand {
@@ -182,7 +188,10 @@
 
 - (IBAction)hitTapped:(id)sender {
     [self processPlayerTurn];
-    [self.game processHouseTurn];
+    
+    if (!self.game.player.busted) {
+        [self.game processHouseTurn];
+    }
 }
 
 - (IBAction)stayTapped:(id)sender {

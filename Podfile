@@ -14,6 +14,7 @@ target "UnitTests" do
   pod 'Expecta+Collections'                                              
   pod 'Swizzlean', '~> 0.2'
   pod 'KIF', '~> 3.0'
+  pod 'KIFViewControllerActions'
 
 end
 

@@ -29,13 +29,39 @@ describe(@"FISBlackjackViewController", ^{
     __block FISBlackjackViewController *blackjackVC;
     
     beforeEach(^{
-        
-        blackjackVC = [[FISBlackjackViewController alloc] init];
-        
         UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         
         blackjackVC = [main instantiateViewControllerWithIdentifier:@"blackjackVC"];
         
+        [UIApplication sharedApplication].keyWindow.rootViewController = blackjackVC;
+    });
+    
+    describe(@"playerMayHit", ^{
+        it(@"should return NO if the player has busted", ^{
+            blackjackVC.game.player.busted = YES;
+           
+            expect([blackjackVC playerMayHit]).to.beFalsy();
+        });
+        
+        it(@"should return NO if the player has stayed", ^{
+            blackjackVC.game.player.stayed = YES;
+            
+            expect([blackjackVC playerMayHit]).to.beFalsy();
+        });
+        
+        it(@"should return NO if the player holds a blackjack", ^{
+            blackjackVC.game.player.blackjack = YES;
+            
+            expect([blackjackVC playerMayHit]).to.beFalsy();
+        });
+        
+        it(@"should return YES if the player has not busted, stayed, or holds a blackjack", ^{
+            blackjackVC.game.player.busted = NO;
+            blackjackVC.game.player.stayed = NO;
+            blackjackVC.game.player.blackjack = NO;
+            
+            expect([blackjackVC playerMayHit]).to.beTruthy();
+        });
     });
     
     describe(@"initial view", ^{
@@ -46,12 +72,22 @@ describe(@"FISBlackjackViewController", ^{
             [tester waitForAbsenceOfViewWithAccessibilityLabel:@"houseCard4"];
             [tester waitForAbsenceOfViewWithAccessibilityLabel:@"houseCard5"];
         });
+        
         it(@"should hide all of the player's card views", ^{
             [tester waitForAbsenceOfViewWithAccessibilityLabel:@"playerCard1"];
             [tester waitForAbsenceOfViewWithAccessibilityLabel:@"playerCard2"];
             [tester waitForAbsenceOfViewWithAccessibilityLabel:@"playerCard3"];
             [tester waitForAbsenceOfViewWithAccessibilityLabel:@"playerCard4"];
             [tester waitForAbsenceOfViewWithAccessibilityLabel:@"playerCard5"];
+        });
+        
+        it(@"should hide the winner, houseScore, busted, and blackjack labels", ^{
+            [tester waitForAbsenceOfViewWithAccessibilityLabel:@"winner"];
+            [tester waitForAbsenceOfViewWithAccessibilityLabel:@"houseScore"];
+            [tester waitForAbsenceOfViewWithAccessibilityLabel:@"houseBusted"];
+            [tester waitForAbsenceOfViewWithAccessibilityLabel:@"houseBlackjack"];
+            [tester waitForAbsenceOfViewWithAccessibilityLabel:@"playerBusted"];
+            [tester waitForAbsenceOfViewWithAccessibilityLabel:@"playerBlackjack"];
         });
     });
     
@@ -68,6 +104,7 @@ describe(@"FISBlackjackViewController", ^{
         it(@"should show the card labels in the card views", ^{
             [tester tapViewWithAccessibilityLabel:@"deal"];
             
+            // the house's first card should ideally be kept hidden
             FISCard *cardHouse2 = blackjackVC.game.house.cardsInHand[1];
             FISCard *cardPlayer1 = blackjackVC.game.player.cardsInHand[0];
             FISCard *cardPlayer2 = blackjackVC.game.player.cardsInHand[1];
@@ -85,120 +122,122 @@ describe(@"FISBlackjackViewController", ^{
             
             expect(blackjackVC.playerScore.text).to.endWith(playerScore);
         });
+        
+        it(@"should enable the hit button, or reenable the deal button if the player may not hit", ^{
+            [tester tapViewWithAccessibilityLabel:@"deal"];
+            
+            if ([blackjackVC playerMayHit]) {
+                [tester tapViewWithAccessibilityLabel:@"hit"];
+            } else {
+                [tester tapViewWithAccessibilityLabel:@"deal"];
+            }
+        });
+        
+        it(@"should enable the stay button, or reenable the deal button if the player may not hit", ^{
+            [tester tapViewWithAccessibilityLabel:@"deal"];
+            
+            if ([blackjackVC playerMayHit]) {
+                [tester tapViewWithAccessibilityLabel:@"stay"];
+            } else {
+                [tester tapViewWithAccessibilityLabel:@"deal"];
+            }
+        });
     });
     
-//    describe(@"Hit", ^{
-//        it(@"should add a new card when hit button is pressed", ^{
-//            [tester waitForTappableViewWithAccessibilityLabel:@"hitButton"];
-//            
-//            for (int x = 0; x < 5; x++)
-//            {
-//                FISCard *aceSpades = [[FISCard alloc] initWithSuit:@"♠️" rank:@1];
-//                FISCard *aceDiamonds = [[FISCard alloc] initWithSuit:@"♦️" rank:@1];
-//                
-//                blackjackVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[aceDiamonds, aceSpades]];
-//                [blackjackVC updateUI];
-//                
-//                [tester tapViewWithAccessibilityLabel:@"hitButton"];
-//                expect([blackjackVC.blackjackGame.hand count]).to.equal(3);
-//                expect(((UILabel *)[tester waitForViewWithAccessibilityLabel:@"card3"]).isHidden).to.beFalsy();
-//                [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card4"];
-//                [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card5"];
-//            }
-//        });
-//        
-//        it(@"should not hit if blackjack", ^{
-//            FISCard *aceSpades = [[FISCard alloc] initWithSuit:@"♠️" rank:@1];
-//            FISCard *kingDiamonds = [[FISCard alloc] initWithSuit:@"♦️" rank:@13];
-//            
-//            blackjackVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[aceSpades, kingDiamonds]];
-//            [blackjackVC updateUI];
-//            
-//            [tester tapViewWithAccessibilityLabel:@"hitButton"];
-//            
-//            [tester waitForViewWithAccessibilityLabel:@"card1"];
-//            [tester waitForViewWithAccessibilityLabel:@"card2"];
-//            [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card3"];
-//            [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card4"];
-//            [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card5"];
-//        });
-//        
-//        it(@"should not hit if busted", ^{
-//            FISCard *kingDiamonds = [[FISCard alloc] initWithSuit:@"♦️" rank:@13];
-//            FISCard *kingSpades = [[FISCard alloc] initWithSuit:@"♠️" rank:@13];
-//            FISCard *kingHearts = [[FISCard alloc] initWithSuit:@"♥️" rank:@13];
-//            
-//            bjgVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[kingDiamonds, kingHearts, kingSpades]];
-//            [bjgVC updateUI];
-//            
-//            [tester tapViewWithAccessibilityLabel:@"hitButton"];
-//            [tester waitForViewWithAccessibilityLabel:@"card1"];
-//            [tester waitForViewWithAccessibilityLabel:@"card2"];
-//            [tester waitForViewWithAccessibilityLabel:@"card3"];
-//            [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card4"];
-//            [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card5"];
-//            
-//        });
-//    });
-//    describe(@"deal", ^{
-//        it(@"Should deal two new cards and hide cards 3-5", ^{
-//    
-//            [tester tapViewWithAccessibilityLabel:@"dealButton"];
-//            
-//            [tester waitForViewWithAccessibilityLabel:@"card1"];
-//            [tester waitForViewWithAccessibilityLabel:@"card2"];
-//            [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card3"];
-//            [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card4"];
-//            [tester waitForAbsenceOfViewWithAccessibilityLabel:@"card5"];
-//        });
-//    });
-//    
-//    describe(@"scoreLabel", ^{
-//        it(@"should update scoreLabel with the current score", ^{
-//            FISCard *kingDiamonds = [[FISCard alloc] initWithSuit:@"♦️" rank:@13];
-//            FISCard *kingSpades = [[FISCard alloc] initWithSuit:@"♠️" rank:@13];
-//            FISCard *kingHearts = [[FISCard alloc] initWithSuit:@"♥️" rank:@13];
-//            
-//            blackjackVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[kingDiamonds, kingHearts, kingSpades]];
-//            [blackjackVC updateUI];
-//
-//            UILabel *scoreLabel = (UILabel *)[tester waitForViewWithAccessibilityLabel:@"scoreLabel"];
-//            
-//            expect(scoreLabel.text).to.equal(@"30");
-//        });
-//        
-//    });
-//    
-//    describe(@"resultLabel", ^{
-//        it(@"should show Blackjack! in resultLabel if blackjack", ^{
-//            FISCard *aceSpades = [[FISCard alloc] initWithSuit:@"♠️" rank:@1];
-//            FISCard *kingDiamonds = [[FISCard alloc] initWithSuit:@"♦️" rank:@13];
-//            
-//            blackjackVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[aceSpades, kingDiamonds]];
-//            [blackjackVC updateUI];
-//            
-//            UILabel *resultLabel = (UILabel *)[tester waitForViewWithAccessibilityLabel:@"resultLabel"];
-//            expect(resultLabel.text).to.equal(@"Blackjack!");
-//        });
-//        
-//        it(@"should show Busted! in resultLabel if busted", ^{
-//            FISCard *kingDiamonds = [[FISCard alloc] initWithSuit:@"♦️" rank:@13];
-//            FISCard *kingSpades = [[FISCard alloc] initWithSuit:@"♠️" rank:@13];
-//            FISCard *kingHearts = [[FISCard alloc] initWithSuit:@"♥️" rank:@13];
-//            
-//            blackjackVC.blackjackGame.hand = [NSMutableArray arrayWithArray:@[kingDiamonds, kingHearts, kingSpades]];
-//            [blackjackVC updateUI];
-//            
-//            UILabel *resultLabel = (UILabel *)[tester waitForViewWithAccessibilityLabel:@"resultLabel"];
-//            
-//            expect(resultLabel.text).to.equal(@"Busted!");
-//        });
-//    });
     
-//    afterEach(^{
-//        [blackjackVC viewDidLoad];
-//    });
+    describe(@"hit", ^{
+        it(@"should add a third card object to the player's cardsInHand array", ^{
+            [tester tapViewWithAccessibilityLabel:@"deal"];
+            [tester tapViewWithAccessibilityLabel:@"hit"];
+
+            expect(blackjackVC.game.player.cardsInHand.count).to.equal(3);
+        });
+        
+        it(@"should show a third card in the player's card views", ^{
+            [tester tapViewWithAccessibilityLabel:@"deal"];
+            [tester tapViewWithAccessibilityLabel:@"hit"];
+            
+            [tester waitForViewWithAccessibilityLabel:@"playerCard3"];
+            
+            FISCard *cardPlayer3 = blackjackVC.game.player.cardsInHand[2];
+            expect(blackjackVC.playerCard3.text).to.equal(cardPlayer3.cardLabel);
+        });
+        
+        it(@"should update the player's score label with the new score", ^{
+            [tester tapViewWithAccessibilityLabel:@"deal"];
+            
+            if ([blackjackVC playerMayHit]) {
+                [tester tapViewWithAccessibilityLabel:@"hit"];
+            }
+            
+            NSString *playerScore = [NSString stringWithFormat:@"%lu", blackjackVC.game.player.handscore];
+            
+            expect(blackjackVC.playerScore.text).to.endWith(playerScore);
+        });
+    });
     
+    
+    describe(@"stay", ^{
+        it(@"should disable the hit button if the deal did not produce a winner", ^{
+            [tester tapViewWithAccessibilityLabel:@"deal"];
+            
+            if ([blackjackVC playerMayHit]) {
+                [tester tapViewWithAccessibilityLabel:@"stay"];
+            }
+            expect(blackjackVC.hit.enabled).to.beFalsy();
+        });
+        
+        it(@"should disable itself if the deal did not produce a winner", ^{
+            [tester tapViewWithAccessibilityLabel:@"deal"];
+            
+            if ([blackjackVC playerMayHit]) {
+                [tester tapViewWithAccessibilityLabel:@"stay"];
+            }
+            expect(blackjackVC.stay.enabled).to.beFalsy();
+        });
+        
+        it(@"should reenable the deal button if the deal did not produce a winner, if it did, deal should be reenabled", ^{
+            [tester tapViewWithAccessibilityLabel:@"deal"];
+            
+            if ([blackjackVC playerMayHit]) {
+                [tester tapViewWithAccessibilityLabel:@"stay"];
+            }
+            [tester tapViewWithAccessibilityLabel:@"deal"];
+        });
+        
+        it(@"should show the player's stayed label", ^{
+            [tester tapViewWithAccessibilityLabel:@"deal"];
+            
+            if ([blackjackVC playerMayHit]) {
+                [tester tapViewWithAccessibilityLabel:@"stay"];
+                [tester waitForViewWithAccessibilityLabel:@"playerStayed"];
+            }
+        });
+        
+        it(@"should display the winner", ^{
+            [tester tapViewWithAccessibilityLabel:@"deal"];
+            
+            if ([blackjackVC playerMayHit]) {
+                [tester tapViewWithAccessibilityLabel:@"stay"];
+            }
+            
+            [tester waitForViewWithAccessibilityLabel:@"winner"];
+        });
+        
+        it(@"should display the house's score", ^{
+            [tester tapViewWithAccessibilityLabel:@"deal"];
+            
+            if ([blackjackVC playerMayHit]) {
+                [tester tapViewWithAccessibilityLabel:@"stay"];
+            }
+
+            [tester waitForViewWithAccessibilityLabel:@"houseScore"];
+            
+            NSString *houseScore = [NSString stringWithFormat:@"%lu", blackjackVC.game.house.handscore];
+            
+            expect(blackjackVC.houseScore.text).to.endWith(houseScore);
+        });
+    });
 });
 
 SpecEnd

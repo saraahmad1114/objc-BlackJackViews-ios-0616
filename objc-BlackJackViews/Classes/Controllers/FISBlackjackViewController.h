@@ -50,5 +50,6 @@
 - (IBAction)stayTapped:(id)sender;
 
 - (void)updateViews;
+- (BOOL)playerMayHit;
 
 @end
