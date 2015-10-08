@@ -36,34 +36,6 @@ describe(@"FISBlackjackViewController", ^{
         [UIApplication sharedApplication].keyWindow.rootViewController = blackjackVC;
     });
     
-    describe(@"playerMayHit", ^{
-        it(@"should return NO if the player has busted", ^{
-            blackjackVC.game.player.busted = YES;
-           
-            expect([blackjackVC playerMayHit]).to.beFalsy();
-        });
-        
-        it(@"should return NO if the player has stayed", ^{
-            blackjackVC.game.player.stayed = YES;
-            
-            expect([blackjackVC playerMayHit]).to.beFalsy();
-        });
-        
-        it(@"should return NO if the player holds a blackjack", ^{
-            blackjackVC.game.player.blackjack = YES;
-            
-            expect([blackjackVC playerMayHit]).to.beFalsy();
-        });
-        
-        it(@"should return YES if the player has not busted, stayed, or holds a blackjack", ^{
-            blackjackVC.game.player.busted = NO;
-            blackjackVC.game.player.stayed = NO;
-            blackjackVC.game.player.blackjack = NO;
-            
-            expect([blackjackVC playerMayHit]).to.beTruthy();
-        });
-    });
-    
     describe(@"initial view", ^{
         it(@"should hide all of the house's card views", ^{
             [tester waitForAbsenceOfViewWithAccessibilityLabel:@"houseCard1"];
@@ -109,24 +81,33 @@ describe(@"FISBlackjackViewController", ^{
             FISCard *cardPlayer1 = blackjackVC.game.player.cardsInHand[0];
             FISCard *cardPlayer2 = blackjackVC.game.player.cardsInHand[1];
             
-            expect(blackjackVC.houseCard2.text).to.equal(cardHouse2.cardLabel);
-            expect(blackjackVC.playerCard1.text).to.equal(cardPlayer1.cardLabel);
-            expect(blackjackVC.playerCard2.text).to.equal(cardPlayer2.cardLabel);
+            UILabel *houseCard2 = (UILabel *)[tester waitForViewWithAccessibilityLabel:@"houseCard2"];
+            UILabel *playerCard1 = (UILabel *)[tester waitForViewWithAccessibilityLabel:@"playerCard1"];
+            UILabel *playerCard2 = (UILabel *)[tester waitForViewWithAccessibilityLabel:@"playerCard2"];
+            
+            
+            expect(houseCard2.text).to.equal(cardHouse2.cardLabel);
+            expect(playerCard1.text).to.equal(cardPlayer1.cardLabel);
+            expect(playerCard2.text).to.equal(cardPlayer2.cardLabel);
         });
 
         
         it(@"should update the player's score label to show the current score", ^{
             [tester tapViewWithAccessibilityLabel:@"deal"];
             
-            NSString *playerScore = [NSString stringWithFormat:@"%lu", blackjackVC.game.player.handscore];
+            UILabel *playerScore = (UILabel *)[tester waitForViewWithAccessibilityLabel:@"playerScore"];
             
-            expect(blackjackVC.playerScore.text).to.endWith(playerScore);
+            NSString *playerScoreString = [NSString stringWithFormat:@"%lu", blackjackVC.game.player.handscore];
+            
+            expect(playerScore.text).to.endWith(playerScoreString);
         });
         
         it(@"should enable the hit button, or reenable the deal button if the player may not hit", ^{
             [tester tapViewWithAccessibilityLabel:@"deal"];
             
-            if ([blackjackVC playerMayHit]) {
+            UIButton *hit = (UIButton *)[tester waitForViewWithAccessibilityLabel:@"hit"];
+            
+            if (hit.enabled) {
                 [tester tapViewWithAccessibilityLabel:@"hit"];
             } else {
                 [tester tapViewWithAccessibilityLabel:@"deal"];
@@ -136,7 +117,9 @@ describe(@"FISBlackjackViewController", ^{
         it(@"should enable the stay button, or reenable the deal button if the player may not hit", ^{
             [tester tapViewWithAccessibilityLabel:@"deal"];
             
-            if ([blackjackVC playerMayHit]) {
+            UIButton *stay = (UIButton *)[tester waitForViewWithAccessibilityLabel:@"stay"];
+            
+            if (stay.enabled) {
                 [tester tapViewWithAccessibilityLabel:@"stay"];
             } else {
                 [tester tapViewWithAccessibilityLabel:@"deal"];
@@ -146,33 +129,27 @@ describe(@"FISBlackjackViewController", ^{
     
     
     describe(@"hit", ^{
-        it(@"should add a third card object to the player's cardsInHand array", ^{
-            [tester tapViewWithAccessibilityLabel:@"deal"];
-            [tester tapViewWithAccessibilityLabel:@"hit"];
-
-            expect(blackjackVC.game.player.cardsInHand.count).to.equal(3);
-        });
-        
         it(@"should show a third card in the player's card views", ^{
             [tester tapViewWithAccessibilityLabel:@"deal"];
             [tester tapViewWithAccessibilityLabel:@"hit"];
             
             [tester waitForViewWithAccessibilityLabel:@"playerCard3"];
-            
-            FISCard *cardPlayer3 = blackjackVC.game.player.cardsInHand[2];
-            expect(blackjackVC.playerCard3.text).to.equal(cardPlayer3.cardLabel);
         });
         
         it(@"should update the player's score label with the new score", ^{
             [tester tapViewWithAccessibilityLabel:@"deal"];
             
-            if ([blackjackVC playerMayHit]) {
+            UIButton *hit = (UIButton *)[tester waitForViewWithAccessibilityLabel:@"hit"];
+            
+            if (hit.enabled) {
                 [tester tapViewWithAccessibilityLabel:@"hit"];
             }
             
-            NSString *playerScore = [NSString stringWithFormat:@"%lu", blackjackVC.game.player.handscore];
+            UILabel *playerScore = (UILabel *)[tester waitForViewWithAccessibilityLabel:@"playerScore"];
             
-            expect(blackjackVC.playerScore.text).to.endWith(playerScore);
+            NSString *playerScoreString = [NSString stringWithFormat:@"%lu", blackjackVC.game.player.handscore];
+            
+            expect(playerScore.text).to.endWith(playerScoreString);
         });
     });
     
@@ -181,25 +158,35 @@ describe(@"FISBlackjackViewController", ^{
         it(@"should disable the hit button if the deal did not produce a winner", ^{
             [tester tapViewWithAccessibilityLabel:@"deal"];
             
-            if ([blackjackVC playerMayHit]) {
+            UIButton *stay = (UIButton *)[tester waitForViewWithAccessibilityLabel:@"stay"];
+            
+            if (stay.enabled) {
                 [tester tapViewWithAccessibilityLabel:@"stay"];
             }
-            expect(blackjackVC.hit.enabled).to.beFalsy();
+            
+            UIButton *hit = (UIButton *)[tester waitForViewWithAccessibilityLabel:@"hit"];
+            
+            expect(hit.enabled).to.beFalsy();
         });
         
         it(@"should disable itself if the deal did not produce a winner", ^{
             [tester tapViewWithAccessibilityLabel:@"deal"];
             
-            if ([blackjackVC playerMayHit]) {
+            UIButton *stay = (UIButton *)[tester waitForViewWithAccessibilityLabel:@"stay"];
+            
+            if (stay.enabled) {
                 [tester tapViewWithAccessibilityLabel:@"stay"];
             }
-            expect(blackjackVC.stay.enabled).to.beFalsy();
+            
+            expect(stay.enabled).to.beFalsy();
         });
         
         it(@"should reenable the deal button if the deal did not produce a winner, if it did, deal should be reenabled", ^{
             [tester tapViewWithAccessibilityLabel:@"deal"];
             
-            if ([blackjackVC playerMayHit]) {
+            UIButton *stay = (UIButton *)[tester waitForViewWithAccessibilityLabel:@"stay"];
+            
+            if (stay.enabled) {
                 [tester tapViewWithAccessibilityLabel:@"stay"];
             }
             [tester tapViewWithAccessibilityLabel:@"deal"];
@@ -208,7 +195,9 @@ describe(@"FISBlackjackViewController", ^{
         it(@"should show the player's stayed label", ^{
             [tester tapViewWithAccessibilityLabel:@"deal"];
             
-            if ([blackjackVC playerMayHit]) {
+            UIButton *stay = (UIButton *)[tester waitForViewWithAccessibilityLabel:@"stay"];
+            
+            if (stay.enabled) {
                 [tester tapViewWithAccessibilityLabel:@"stay"];
                 [tester waitForViewWithAccessibilityLabel:@"playerStayed"];
             }
@@ -217,7 +206,9 @@ describe(@"FISBlackjackViewController", ^{
         it(@"should display the winner", ^{
             [tester tapViewWithAccessibilityLabel:@"deal"];
             
-            if ([blackjackVC playerMayHit]) {
+            UIButton *stay = (UIButton *)[tester waitForViewWithAccessibilityLabel:@"stay"];
+            
+            if (stay.enabled) {
                 [tester tapViewWithAccessibilityLabel:@"stay"];
             }
             
@@ -227,15 +218,17 @@ describe(@"FISBlackjackViewController", ^{
         it(@"should display the house's score", ^{
             [tester tapViewWithAccessibilityLabel:@"deal"];
             
-            if ([blackjackVC playerMayHit]) {
+            UIButton *stay = (UIButton *)[tester waitForViewWithAccessibilityLabel:@"stay"];
+            
+            if (stay.enabled) {
                 [tester tapViewWithAccessibilityLabel:@"stay"];
             }
 
-            [tester waitForViewWithAccessibilityLabel:@"houseScore"];
+            UILabel *houseScore = (UILabel *)[tester waitForViewWithAccessibilityLabel:@"houseScore"];
             
-            NSString *houseScore = [NSString stringWithFormat:@"%lu", blackjackVC.game.house.handscore];
+            NSString *houseScoreString = [NSString stringWithFormat:@"%lu", blackjackVC.game.house.handscore];
             
-            expect(blackjackVC.houseScore.text).to.endWith(houseScore);
+            expect(houseScore.text).to.endWith(houseScoreString);
         });
     });
 });
