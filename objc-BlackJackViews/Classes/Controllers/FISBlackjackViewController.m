@@ -34,6 +34,7 @@
     [self showPlayerCards];
     [self showActiveStatusLabels];
     [self updatePlayerScoreLabel];
+    
     if ([self playerMayHit]) {
         self.winner.hidden = YES;
         self.houseScore.hidden = YES;
@@ -95,6 +96,40 @@
     self.playerScore.text = [NSString stringWithFormat:@"Score: %lu", playerScore];
 }
 
+# pragma IBActions
+
+- (IBAction)dealTapped:(id)sender {
+    self.deal.enabled = NO;
+    self.hit.enabled = YES;
+    self.stay.enabled = YES;
+    
+    [self.game.deck resetDeck];
+    [self.game.house resetForNewGame];
+    [self.game.player resetForNewGame];
+    [self.game dealNewRound];
+    
+    [self updateViews];
+    if (![self playerMayHit]) {
+        [self concludeRound];
+    }
+}
+
+- (IBAction)hitTapped:(id)sender {
+    [self playerTurn];
+    
+    if (!self.game.player.busted) {
+        [self houseTurn];
+    }
+}
+
+- (IBAction)stayTapped:(id)sender {
+    self.game.player.stayed = YES;
+    self.hit.enabled = NO;
+    self.stay.enabled = NO;
+    [self updateViews];
+    [self concludeRound];
+}
+
 # pragma player turn
 
 - (BOOL)playerMayHit {
@@ -102,15 +137,22 @@
     return playerMayHit;
 }
 
-- (void)processPlayerTurn {
+- (void)playerTurn {
     [self.game dealCardToPlayer];
     [self updateViews];
     
     BOOL playerMayHit = [self playerMayHit];
-    self.hit.enabled = playerMayHit;
-    self.stay.enabled = playerMayHit;
     
-    if (!playerMayHit || self.game.house.busted) {
+    if (!playerMayHit) {
+        self.hit.enabled = NO;
+        self.stay.enabled = NO;
+        [self concludeRound];
+    }
+}
+
+- (void)houseTurn {
+    [self.game processHouseTurn];
+    if (self.game.house.busted) {
         [self concludeRound];
     }
 }
@@ -171,35 +213,6 @@
     self.houseLosses.text = [NSString stringWithFormat:@"Losses: %lu", self.game.house.losses];
     self.playerWins.text = [NSString stringWithFormat:@"Wins: %lu", self.game.player.wins];
     self.playerLosses.text = [NSString stringWithFormat:@"Losses: %lu", self.game.player.losses];
-}
-
-# pragma IBActions
-
-- (IBAction)dealTapped:(id)sender {
-    self.deal.enabled = NO;
-    self.hit.enabled = YES;
-    self.stay.enabled = YES;
-    [self.game dealNewRound];
-    [self updateViews];
-    if (![self playerMayHit]) {
-        [self concludeRound];
-    }
-}
-
-- (IBAction)hitTapped:(id)sender {
-    [self processPlayerTurn];
-    
-    if (!self.game.player.busted) {
-        [self.game processHouseTurn];
-    }
-}
-
-- (IBAction)stayTapped:(id)sender {
-    self.game.player.stayed = YES;
-    self.hit.enabled = NO;
-    self.stay.enabled = NO;
-    [self updateViews];
-    [self concludeRound];
 }
 
 @end

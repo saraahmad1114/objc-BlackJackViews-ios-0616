@@ -5,7 +5,10 @@
 
 @interface FISBlackjackViewController : UIViewController
 
-@property (nonatomic) FISBlackjackGame *game;
+@property (strong, nonatomic) FISBlackjackGame *game;
+
+@property (weak, nonatomic) IBOutlet UILabel *winner;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *houseScore;
 
@@ -21,9 +24,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *houseWins;
 @property (weak, nonatomic) IBOutlet UILabel *houseLosses;
-
-
-@property (weak, nonatomic) IBOutlet UILabel *winner;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *playerScore;
@@ -49,7 +49,6 @@
 - (IBAction)hitTapped:(id)sender;
 - (IBAction)stayTapped:(id)sender;
 
-- (void)updateViews;
 - (BOOL)playerMayHit;
 
 @end

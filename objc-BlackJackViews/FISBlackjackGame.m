@@ -44,11 +44,7 @@
     NSLog(@"%@", self.house);
 }
 
-- (void)dealNewRound {
-    [self.deck resetDeck];
-    [self.house resetForNewGame];
-    [self.player resetForNewGame];
-    
+- (void)dealNewRound {    
     for (NSUInteger i = 0; i < 2; i++) {
         [self dealCardToPlayer];
         [self dealCardToHouse];
