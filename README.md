@@ -1,5 +1,3 @@
-
-
 # BlackJack Views
 
 ## Objectives
@@ -23,13 +21,11 @@ Open the `objc-BlackjackViews.xcworkspace` file and navigate to the `Main.storyb
 
 ![](https://curriculum-content.s3.amazonaws.com/ios/objc-blackjack-views/blackjack_storyboard.png)
 
-1. Create a new view controller subclass called `FISBlackjackViewController`. Connect the 23 `UILabel`s as outlets in the header file, making their property names consistent with their names in the storyboard file. (*You may ignore the labels which read `House` and `Player`*).
+1. Create a new view controller subclass called `FISBlackjackViewController`. Connect up all of the labels and buttons that we provided.
 
-2. Connect the three `UIButton`s first as outlets (properties), then as `IBAction`s (methods). Add the word "Tapped" to the names of the `IBAction` methods to disambiguate them from the property getters.
+2. Copy in your `FISCard`, `FISCardDeck`, `FISBlackjackPlayer`, and `FISBlackjackGame` class files that you wrote when solving the `objc-Blackjack` lab (the debug console version).
 
-3. Copy in your `FISCard`, `FISCardDeck`, `FISBlackjackPlayer`, and `FISBlackjackGame` class files that you wrote when solving the `objc-Blackjack` lab (the debug console version).
-
-4. Add a `FISBlackjackGame` property to the view controller's header file named `game` and one method named `playerMayHit` that returns a `BOOL`. This should be enough to allow the tests to compile.
+3. Add a `FISBlackjackGame` property to the view controller's header file named `game` and one method named `playerMayHit` that returns a `BOOL`. This should be enough to allow the tests to compile.
 
 **Note:** *Because of the randomization inherent to playing blackjack, some of the tests on* `FISBlackjackViewController` *may pass or fail intermittently due to various case being dealt or drawn.*
 
@@ -37,62 +33,44 @@ Open the `objc-BlackjackViews.xcworkspace` file and navigate to the `Main.storyb
 
 Before writing any code, put yourself (as the developer) in the mental position of the Blackjack dealer. What steps do you need to take to run a game of Blackjack? You already have several things going for you: you have a deck that can shuffle itself; your opponent (the "player") knows the rules of Blackjack; and your "house rules" dictate when you should hit or stay so you can let the current state of your own hand make that decision for you. With those in mind, the process of running a game of Blackjack, might follow these steps:
 
-1. When the player asks you to deal, give two cards each to yourself and to the player. Then evaluate your own hand and ask the player the state of their own hand. If a winner is already apparent, the game should end.
+1. When the player asks you to deal, give two cards each to the house and to the player.
 
-2. If the game continues, you would then ask the player to hit or to stay. If they choose to hit, they should receive one card. If the player has not bust, then you as the "house" should take your turn.
+2. Ask the player to hit or to stay. If they choose to hit, they should receive one card. If the player has not bust (over 21 points), then you as the "house" should take your turn.
 
-3. If the player decides to stay, then you as the "house" should finish taking the cards that you must take until your hand's score requires you to stay. Then evaluate the winner of the round.
+3. If the player decides to stay, then you as the "house" play the rest of the game following the house rules in the previous labs.
 
-4. Continue asking the player to hit or stay until they either bust or stay. Evaluate the winner when the round has ended and declare the winner. Record the result in a tally of wins and losses.
+4. Continue asking the player to hit or stay until they either bust or stay. Figure out the winner when the round has ended and tell the user. Record the result in a tally of wins and losses.
 
 ### Write A Single-Use Implementation
 
 Don't tackle the whole problem at once. Start at the beginning and work in small units, running your scheme frequently. 
 
-1. In the view controller's `viewDidLoad` method, set up the `game` property so that you have working instance of `FISBlackjackGame`. Use the `hidden` property on the UIViews to hide the labels that shouldn't be shown when the application loads (such as `winner` label, the "cards" that have not been dealt yet, and the "stayed", "busted", and "blackjack" status labels).
+1. When the app starts, use your `FISBlackjackGame` to start off the game. Use the `hidden` property on the UIViews to hide the labels that shouldn't be shown when the application loads (such as `winner` label, the "cards" that have not been dealt yet, and the "stayed", "busted", and "blackjack" status labels).
 
 ![](https://curriculum-content.s3.amazonaws.com/ios/objc-blackjack-views/blackjack_initial_view.png)  
 — *A possible setting upon startup.*
 
-2. Implement the `dealTapped` method to deal a new game. This method should update any views that it may have affected, particularly the score labels and the first two card views for the house and the player.
+2. When a user taps the deal button, a new game should begin dealing two cards to the house and the player.
 
-3. This `dealTapped` method should enable the `hit` and `stay` buttons if your user is permitted to hit (i.e. neither of you has won yet). Write the implementation for the `playerMayHit` method to determine whether the user is entitled to hit (i.e. the player has not busted, stayed, nor holds a blackjack hand). Use the boolean return of this method to determine whether your user has the option to hit or stay.
-**Note:** *There are tests to verify the* `playerMayHit` *method's implementation.*
+3. If there is no winner just yet, enable the stay and hit buttons. 
 
-4. Write the implementation for the `hitTapped` method. This should:
-  * add a card to the player's hand,
-  * evaluate if the player can have another turn,
-	  * if so, it should offer a turn to the house,
-	  * if not, it should disable the `hit` and `stay` buttons and send the round into a "conclusion" method.
-  * update the views with new information.
+4. When a user taps the hit button it should deal a new card to the player, then the house should take it's turn, then wait for further input. Make sure to check for winners!
 
-5. Write the implementation for the `stayTapped` method. This should:
-  * flip the player's `stayed` boolean to `YES`,
-  * update the views, and
-  * offer a turn to the house (make sure to update the views again after the house's turn).
+5. When a user taps the stay button. Let the house finish playing and display the winner to the user. (Good Luck!)
 
-6. Because the player's choice to `hit` or `stay` might be revoked before the end of the round in some cases, you should write a method that concludes the round. If the player has busted, the house has won. However, if the player has stayed or holds a blackjack hand, the house should continue to play until it either busts or can no longer hit because of its "house rules." Once the house can no longer player, determine the winner and display it using the "winner" label. Increment the wins and losses labels appropriately.
-
-At this point, you should have a generally-functional single-round game. It should show new cards as they're dealt and update the score appropriately.
+At this point, you should have a generally-functional single-round game. It should show new cards as they're dealt, tell the user when there is a winner, and update the score.
     
-**Hint:** *You can set a label's* `text` *property to a matching* `cardlabel` *in that player's* `cardsInHand` *array. You can then unhide the card views which have altered labels.*
-
 **Hint:** *Property objects (such as views) can be stored in collections just like local object variables can. Those collections may or may not be held as properties themselves.*
 
 ![](https://curriculum-content.s3.amazonaws.com/ios/objc-blackjack-views/blackjack_busted.png)
 
 ### Reset the Game
 
-To allow your user to play a second round of blackjack without restarting the application, you should detect when the round has ended and reenable the `deal` button while displaying the winner. Whenever the `deal` button is pressed, it should reset the views for a fresh round. 
-
-**Hint:** *You will need to be sure to reset the underlying data held in the* `FISBlackjackGame` *instance before altering the views. Does the* `dealNewRound` *method reset the deck and the cards held by the player and the house?*
+When a game is complete, the user should be able to re-tap the deal button. As explained above, the deal button should reset the game for a new round.
 
 **Hint:** *If you're already preparing the views for the first game, is there code that you can reuse to prepare for the second game?*
 
-**Hint:** *Don't let cards from previous rounds still show up after the reset; you'll confuse (and frustrate) the user!*
-
 ![](https://curriculum-content.s3.amazonaws.com/ios/objc-blackjack-views/blackjack_blackjack.png)
-— *Play multiple games without reloading.*
 
 ## Advanced
 
@@ -119,7 +97,7 @@ So, adapt your code to only show the label of the house's first card at the *end
 
 ### Customize the Color Scheme
 
-This lab was presented with flat design, but you can easily change many of the font and background colors right in Interface Builder. Play around with these basic settings to customize your blackjack game. You can resize and reorganize the buttons and labels to a certain degree, but make sure the layout remains legible and tactile to the user!
+This lab was presented with flat design, but you can easily change many of the font and background colors right in Interface Builder. Play around with these basic settings to customize your blackjack game. You can resize and reorganize the buttons and labels to a certain degree, but make sure the layout remains legible and tactile to the user! Also feel free to investigate adding images.
 
 ### Download An Alumni's Blackjack App
 
