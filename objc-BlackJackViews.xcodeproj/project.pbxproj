@@ -9,12 +9,17 @@
 /* Begin PBXBuildFile section */
 		297FF2CCAF3C46F7B8CF451F /* FISAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4329259594A78826919DC /* FISAppDelegate.m */; };
 		440569D1194F45C9006A0E35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 440569D0194F45C9006A0E35 /* Main.storyboard */; };
+		440569D4194F4636006A0E35 /* FISBlackjackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 440569D3194F4636006A0E35 /* FISBlackjackViewController.m */; };
 		44A6AD86194F730300C0F7FD /* FISBlackjackViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A6AD85194F730300C0F7FD /* FISBlackjackViewControllerSpec.m */; };
 		4D3DF6431BC43D490047AB5C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D3DF6421BC43D490047AB5C /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
 		4DD50D481BC4412C00ED2A1A /* FISBlackjackGameSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD50D441BC4412C00ED2A1A /* FISBlackjackGameSpec.m */; settings = {ASSET_TAGS = (); }; };
 		4DD50D491BC4412C00ED2A1A /* FISBlackjackPlayerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD50D451BC4412C00ED2A1A /* FISBlackjackPlayerSpec.m */; settings = {ASSET_TAGS = (); }; };
 		4DD50D4A1BC4412C00ED2A1A /* FISCardDeckSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD50D461BC4412C00ED2A1A /* FISCardDeckSpec.m */; settings = {ASSET_TAGS = (); }; };
 		4DD50D4B1BC4412C00ED2A1A /* FISCardSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD50D471BC4412C00ED2A1A /* FISCardSpec.m */; settings = {ASSET_TAGS = (); }; };
+		4DD50D541BC4414B00ED2A1A /* FISBlackjackGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD50D4D1BC4414B00ED2A1A /* FISBlackjackGame.m */; settings = {ASSET_TAGS = (); }; };
+		4DD50D551BC4414B00ED2A1A /* FISBlackjackPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD50D4F1BC4414B00ED2A1A /* FISBlackjackPlayer.m */; settings = {ASSET_TAGS = (); }; };
+		4DD50D561BC4414B00ED2A1A /* FISCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD50D511BC4414B00ED2A1A /* FISCard.m */; settings = {ASSET_TAGS = (); }; };
+		4DD50D571BC4414B00ED2A1A /* FISCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD50D531BC4414B00ED2A1A /* FISCardDeck.m */; settings = {ASSET_TAGS = (); }; };
 		66E60841BFAC4152B025B889 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A500DDDF79D42A6AB790B43 /* Foundation.framework */; };
 		9F779F6C782FE91B24AAAE04 /* libPods-UnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1C1396FB811064C65E9DBDD /* libPods-UnitTests.a */; };
 		CB9A059AEB7C42AF83889669 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B82398F8796741819AC8D0C9 /* main.m */; };
@@ -35,12 +40,22 @@
 		0A500DDDF79D42A6AB790B43 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		34F287E9ABEF41D3BD85D082 /* libPods-unit_tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-unit_tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		440569D0194F45C9006A0E35 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Resources/Storyboards/Main.storyboard; sourceTree = "<group>"; };
+		440569D2194F4636006A0E35 /* FISBlackjackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FISBlackjackViewController.h; path = Classes/Controllers/FISBlackjackViewController.h; sourceTree = "<group>"; };
+		440569D3194F4636006A0E35 /* FISBlackjackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FISBlackjackViewController.m; path = Classes/Controllers/FISBlackjackViewController.m; sourceTree = "<group>"; };
 		44A6AD85194F730300C0F7FD /* FISBlackjackViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISBlackjackViewControllerSpec.m; sourceTree = "<group>"; };
 		4D3DF6421BC43D490047AB5C /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4DD50D441BC4412C00ED2A1A /* FISBlackjackGameSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FISBlackjackGameSpec.m; path = UnitTests/FISBlackjackGameSpec.m; sourceTree = SOURCE_ROOT; };
 		4DD50D451BC4412C00ED2A1A /* FISBlackjackPlayerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FISBlackjackPlayerSpec.m; path = UnitTests/FISBlackjackPlayerSpec.m; sourceTree = SOURCE_ROOT; };
 		4DD50D461BC4412C00ED2A1A /* FISCardDeckSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FISCardDeckSpec.m; path = UnitTests/FISCardDeckSpec.m; sourceTree = SOURCE_ROOT; };
 		4DD50D471BC4412C00ED2A1A /* FISCardSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FISCardSpec.m; path = UnitTests/FISCardSpec.m; sourceTree = SOURCE_ROOT; };
+		4DD50D4C1BC4414B00ED2A1A /* FISBlackjackGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FISBlackjackGame.h; path = "objc-BlackJackViews/FISBlackjackGame.h"; sourceTree = SOURCE_ROOT; };
+		4DD50D4D1BC4414B00ED2A1A /* FISBlackjackGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FISBlackjackGame.m; path = "objc-BlackJackViews/FISBlackjackGame.m"; sourceTree = SOURCE_ROOT; };
+		4DD50D4E1BC4414B00ED2A1A /* FISBlackjackPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FISBlackjackPlayer.h; path = "objc-BlackJackViews/FISBlackjackPlayer.h"; sourceTree = SOURCE_ROOT; };
+		4DD50D4F1BC4414B00ED2A1A /* FISBlackjackPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FISBlackjackPlayer.m; path = "objc-BlackJackViews/FISBlackjackPlayer.m"; sourceTree = SOURCE_ROOT; };
+		4DD50D501BC4414B00ED2A1A /* FISCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FISCard.h; path = "objc-BlackJackViews/FISCard.h"; sourceTree = SOURCE_ROOT; };
+		4DD50D511BC4414B00ED2A1A /* FISCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FISCard.m; path = "objc-BlackJackViews/FISCard.m"; sourceTree = SOURCE_ROOT; };
+		4DD50D521BC4414B00ED2A1A /* FISCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FISCardDeck.h; path = "objc-BlackJackViews/FISCardDeck.h"; sourceTree = SOURCE_ROOT; };
+		4DD50D531BC4414B00ED2A1A /* FISCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FISCardDeck.m; path = "objc-BlackJackViews/FISCardDeck.m"; sourceTree = SOURCE_ROOT; };
 		53BF45D4889F463A8D12FC00 /* FISAppDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FISAppDelegate.h; path = Classes/FISAppDelegate.h; sourceTree = "<group>"; };
 		5BB122409BA9418B8E8ECCFE /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		6E5E19F6190343BCF4711D29 /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -144,6 +159,8 @@
 				53BF45D4889F463A8D12FC00 /* FISAppDelegate.h */,
 				C9E4329259594A78826919DC /* FISAppDelegate.m */,
 				440569D0194F45C9006A0E35 /* Main.storyboard */,
+				440569D2194F4636006A0E35 /* FISBlackjackViewController.h */,
+				440569D3194F4636006A0E35 /* FISBlackjackViewController.m */,
 				C7ABDE67E0CC4E1B90699388 /* Models */,
 				ECA902B43D2446FA9645935D /* Resources */,
 			);
@@ -171,6 +188,14 @@
 		C7ABDE67E0CC4E1B90699388 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4DD50D4C1BC4414B00ED2A1A /* FISBlackjackGame.h */,
+				4DD50D4D1BC4414B00ED2A1A /* FISBlackjackGame.m */,
+				4DD50D4E1BC4414B00ED2A1A /* FISBlackjackPlayer.h */,
+				4DD50D4F1BC4414B00ED2A1A /* FISBlackjackPlayer.m */,
+				4DD50D501BC4414B00ED2A1A /* FISCard.h */,
+				4DD50D511BC4414B00ED2A1A /* FISCard.m */,
+				4DD50D521BC4414B00ED2A1A /* FISCardDeck.h */,
+				4DD50D531BC4414B00ED2A1A /* FISCardDeck.m */,
 			);
 			name = Models;
 			path = Classes/Models;
@@ -342,7 +367,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				297FF2CCAF3C46F7B8CF451F /* FISAppDelegate.m in Sources */,
+				440569D4194F4636006A0E35 /* FISBlackjackViewController.m in Sources */,
+				4DD50D561BC4414B00ED2A1A /* FISCard.m in Sources */,
+				4DD50D571BC4414B00ED2A1A /* FISCardDeck.m in Sources */,
 				CB9A059AEB7C42AF83889669 /* main.m in Sources */,
+				4DD50D551BC4414B00ED2A1A /* FISBlackjackPlayer.m in Sources */,
+				4DD50D541BC4414B00ED2A1A /* FISBlackjackGame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
