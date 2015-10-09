@@ -11,9 +11,9 @@
 
 In this lab, you're going to take code from the previous `OOP-Cards-Model` and `objc-blackjack` labs to create a visual interface for your data models. You'll use a series of `UILabel`s to show your user the state of the blackjack game, and use a few `UIButton`s to control the actions available.
 
-Most of the tests for this lab (in `FISBlackjackViewControllerSpec.m`) actually taps around in the simulator and looks at the various views. It's primarily limited to looking at the content of the labels and being able to press the three buttons that you see, essentially mimicking how your end user might utilize interface presented to them. It will be largely up to you to structure your code in a such a way that accomplishes the expected outputs. 
+Most of the tests for this lab (in `FISBlackjackViewControllerSpec.m`) actually tap around in the simulator and look at the various views. It's primarily limited to looking at the content of the labels and being able to press the three buttons that you see, essentially mimicking how your end user might utilize the interface. It will be largely up to you to structure your code in a such a way that ensures the expected outputs. 
 
-The testing suite is also not thorough due to the difficulty presented by the randomness of the cards that are drawn, so it's possible to pass the tests yet still have unusual behavior for a blackjack game. Don't rely solely on the testing suite to tell you when something's wrong!
+The testing suite is also not thorough due to the difficulty presented by the randomness a shuffled card deck, so it's possible to pass the tests yet still have unusual behavior. Don't rely solely on the testing suite to tell you when something's wrong!
 
 ## Instructions 
 
@@ -60,7 +60,7 @@ Don't tackle the whole problem at once. Start at the beginning and work in small
 
 At this point, you should have a generally-functional single-round game. It should show new cards as they're dealt, tell the user when there is a winner, and update the score.
     
-**Hint:** *Property objects (such as views) can be stored in collections just like local object variables can. Those collections may or may not be held as properties themselves.*
+**Hint:** *Views can be stored in collections just like regular objecs can. Those collections may or may not be held as properties themselves.*
 
 ![](https://curriculum-content.s3.amazonaws.com/ios/objc-blackjack-views/blackjack_busted.png)
 
