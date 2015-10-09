@@ -25,7 +25,7 @@ Open the `objc-BlackjackViews.xcworkspace` file and navigate to the `Main.storyb
 
 2. Copy in your `FISCard`, `FISCardDeck`, `FISBlackjackPlayer`, and `FISBlackjackGame` class files that you wrote when solving the `objc-Blackjack` lab (the debug console version).
 
-3. Add a `FISBlackjackGame` property to the view controller's header file named `game` and one method named `playerMayHit` that returns a `BOOL`. This should be enough to allow the tests to compile.
+3. Add a `FISBlackjackGame` property to the view controller's header file named `game`. This should be enough to allow the tests to compile.
 
 **Note:** *Because of the randomization inherent to playing blackjack, some of the tests on* `FISBlackjackViewController` *may pass or fail intermittently due to various case being dealt or drawn.*
 
@@ -60,7 +60,7 @@ Don't tackle the whole problem at once. Start at the beginning and work in small
 
 At this point, you should have a generally-functional single-round game. It should show new cards as they're dealt, tell the user when there is a winner, and update the score.
     
-**Hint:** *Views can be stored in collections just like regular objecs can. Those collections may or may not be held as properties themselves.*
+**Hint:** *Views can be stored in collections just like regular objects can. Those collections may or may not be held as properties themselves.*
 
 ![](https://curriculum-content.s3.amazonaws.com/ios/objc-blackjack-views/blackjack_busted.png)
 
