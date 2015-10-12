@@ -27,7 +27,7 @@ Open the `objc-BlackjackViews.xcworkspace` file and navigate to the `Main.storyb
 
 3. Add a `FISBlackjackGame` property to the view controller's header file named `game`. This should be enough to allow the tests to compile.
 
-**Note:** *Because of the randomization inherent to playing blackjack, some of the tests on* `FISBlackjackViewController` *may pass or fail intermittently due to various case being dealt or drawn.*
+**Note:** *Because of the randomization inherent to playing blackjack, some of the tests on* `FISBlackjackViewController` *may pass or fail intermittently due to various cards being dealt or drawn.*
 
 ### Envision the Problem
 
