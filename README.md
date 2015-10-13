@@ -27,7 +27,7 @@ Open the `objc-BlackjackViews.xcworkspace` file and navigate to the `Main.storyb
 
 3. Add a `FISBlackjackGame` property to the view controller's header file named `game`. This should be enough to allow the tests to compile.
 
-**Note:** *Because of the randomization inherent to playing blackjack, some of the tests on* `FISBlackjackViewController` *may pass or fail intermittently due to various case being dealt or drawn.*
+**Note:** *Because of the randomization inherent to playing blackjack, some of the tests on* `FISBlackjackViewController` *may pass or fail intermittently due to various cards being dealt or drawn.*
 
 ### Envision the Problem
 
@@ -56,7 +56,7 @@ Don't tackle the whole problem at once. Start at the beginning and work in small
 
 4. When a user taps the hit button it should deal a new card to the player, then the house should take it's turn, then wait for further input. Make sure to check for winners!
 
-5. When a user taps the stay button. Let the house finish playing and display the winner to the user. (Good Luck!)
+5. When a user taps the stay button, let the house finish playing and display the winner to the user. (Good Luck!)
 
 At this point, you should have a generally-functional single-round game. It should show new cards as they're dealt, tell the user when there is a winner, and update the score.
     
