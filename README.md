@@ -56,7 +56,7 @@ Don't tackle the whole problem at once. Start at the beginning and work in small
 
 4. When a user taps the hit button it should deal a new card to the player, then the house should take it's turn, then wait for further input. Make sure to check for winners!
 
-5. When a user taps the stay button. Let the house finish playing and display the winner to the user. (Good Luck!)
+5. When a user taps the stay button, let the house finish playing and display the winner to the user. (Good Luck!)
 
 At this point, you should have a generally-functional single-round game. It should show new cards as they're dealt, tell the user when there is a winner, and update the score.
     
