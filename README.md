@@ -103,4 +103,4 @@ This lab was presented with flat design, but you can easily change many of the f
 
 In the iOS App Store, search for "Flatiron Blackjack" and download the app published by Flatiron School, Inc. This is an app written by Flatiron iOS alumni inspired by the idea of this exercise (it is obviously more fully implemented than it is here).
 
-<a href='https://learn.co/lessons/objc-BlackJackViews' data-visibility='hidden'>View this lesson on Learn.co</a>
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/objc-BlackJackViews' title='BlackJack Views'>BlackJack Views</a> on Learn.co and start learning to code for free.</p>
