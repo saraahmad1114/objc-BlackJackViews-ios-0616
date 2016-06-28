@@ -18,7 +18,7 @@
 //  limitations under the License.
 //
 
-#import "KIFSystemTestActor.h"
+#import <KIF/KIFSystemTestActor.h>
 
 /**
  The `ViewControllerActions` category provides system level actions for triggering the instantation and presentation of `UIViewController` objects from code or loaded from Storyboards. These actions support the use of KIF during TDD or as a functional testing tool.
@@ -82,5 +82,15 @@
  @result A configured test step.
  */
 - (void)presentModalViewControllerWithIdentifier:(NSString *)controllerIdentifier fromStoryboardWithName:(NSString *)storyboardName configurationBlock:(void (^)(UIViewController *viewController))configurationBlock;
+
+
+/*!
+ @abstract Modally presents a given navigation controller on top of the currently presented view controller
+ @param navigationController The `UINavigationController` object you wish to present
+ @param configurationBlock An optional configuration block which is invoked with the navigation controller
+ before it is presented.
+ @result A configured test step.
+ */
+- (void)presentModalViewController:(UINavigationController *)navigationController configurationBlock:(void (^)(UINavigationController *navigationController))configurationBlock;
 
 @end

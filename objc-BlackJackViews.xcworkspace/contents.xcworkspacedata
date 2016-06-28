@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../objc-BlackJack-ios-0616">
+   </FileRef>
+   <FileRef
       location = "group:objc-BlackJackViews.xcodeproj">
    </FileRef>
    <FileRef
